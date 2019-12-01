@@ -1,0 +1,27 @@
+
+
+How to add SSL certificates to Apache2 to open in https://localhost/
+================================================================================
+
+- Download git
+- Create folder called "certificates" in c drive
+- Get Git bash in C:\certificates
+- Give below command
+	openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout privatekey.key -out certificate.pem
+
+
+Go to C:\Apache24\conf\httpd
+============================
+
+Uncomment   
+			 LoadModule ssl_module modules/mod_ssl.so
+And add below lines at the end
+
+Listen 443
+<VirtualHost *:443>
+	DocumentRoot C:\Apache24\htdocs
+    ServerName 13.126.189.174
+    SSLEngine on
+    SSLCertificateFile "C:/certificates/certificate.pem"
+    SSLCertificateKeyFile "C:/certificates/privatekey.key"
+</VirtualHost>
